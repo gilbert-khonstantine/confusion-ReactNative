@@ -7,12 +7,12 @@ function Menu(props) {
     const renderMenuItem = ({ item, index }) => {
         return (
             <ListItem
-                style={styles.title}
                 key={index}
                 title={item.name}
                 subtitle={item.description}
                 hideChevron={true}
                 leftAvatar={{ source: require('./images/uthappizza.png') }}
+                onPress={() => props.onPress(item.id)}
             />
         );
     };
@@ -25,11 +25,5 @@ function Menu(props) {
         />
     );
 }
-
-const styles = StyleSheet.create({
-    title: {
-        marginTop: 20
-    }
-});
 
 export default Menu;

@@ -161,7 +161,6 @@
 				D416091051927CF3A2E9DE28 /* Pods-confusion-tvOSTests.debug.xcconfig */,
 				A80C3325CCCE42C687CE0881 /* Pods-confusion-tvOSTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -285,7 +284,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1130;
+				LastUpgradeCheck = 1150;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
@@ -584,6 +583,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6B50F4AD0E2B35EFE33262D4 /* Pods-confusion-confusionTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -607,6 +607,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9F0FA4510465BA8286C6563C /* Pods-confusion-confusionTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = confusionTests/Info.plist;

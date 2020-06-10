@@ -49,7 +49,7 @@ const HomeNavigator = createStackNavigator({
 const HomeNav = createAppContainer(HomeNavigator);
 
 const ContactNavigator = createStackNavigator({
-    ContactUs: { screen: ContactUs },
+    "Contact Us": { screen: ContactUs },
 }, {
     navigationOptions: ({ navigation }) => ({
         headerStyle: {
@@ -65,7 +65,7 @@ const ContactNavigator = createStackNavigator({
 const ContactNav = createAppContainer(ContactNavigator);
 
 const AboutNavigator = createStackNavigator({
-    AboutUs: { screen: AboutUs },
+    "About Us": { screen: AboutUs },
 }, {
     navigationOptions: ({ navigation }) => ({
         headerStyle: {

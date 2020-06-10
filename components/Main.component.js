@@ -12,12 +12,8 @@ import { createAppContainer } from 'react-navigation';
 import { createDrawerNavigator } from 'react-navigation-drawer';
 
 const MenuNavigator = createStackNavigator({
-    Menu: { screen: Menu },
-    Dishdetail: { screen: DishDetail },
-},
-    {
-        initialRouteName: 'Menu',
-        navigationOptions: {
+    Menu: {
+        screen: Menu, navigationOptions: () => ({
             headerStyle: {
                 backgroundColor: '#512DA8',
             },
@@ -25,57 +21,71 @@ const MenuNavigator = createStackNavigator({
             headerTitleStyle: {
                 color: '#fff',
             },
-        },
-    }
+        }),
+    },
+    Dishdetail: {
+        screen: DishDetail, navigationOptions: () => ({
+            headerStyle: {
+                backgroundColor: '#512DA8',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+                color: '#fff',
+            },
+        }),
+    },
+}
 );
 
 const MenuNav = createAppContainer(MenuNavigator);
 
 const HomeNavigator = createStackNavigator({
-    Home: { screen: Home },
-}, {
-    navigationOptions: ({ navigation }) => ({
-        headerStyle: {
-            backgroundColor: '#512DA8',
-        },
-        headerTitleStyle: {
-            color: '#fff',
-        },
-        headerTintColor: '#fff',
-    }),
+    Home: {
+        screen: Home, navigationOptions: ({ navigation }) => ({
+            headerStyle: {
+                backgroundColor: '#512DA8',
+            },
+            headerTitleStyle: {
+                color: '#fff',
+            },
+            headerTintColor: '#fff',
+        }),
+    },
 });
 
 
 const HomeNav = createAppContainer(HomeNavigator);
 
 const ContactNavigator = createStackNavigator({
-    "Contact Us": { screen: ContactUs },
-}, {
-    navigationOptions: ({ navigation }) => ({
-        headerStyle: {
-            backgroundColor: '#512DA8',
-        },
-        headerTitleStyle: {
-            color: '#fff',
-        },
-        headerTintColor: '#fff',
-    }),
+    "Contact Us": {
+        screen: ContactUs,
+        navigationOptions: ({ navigation }) => ({
+            headerStyle: {
+                backgroundColor: '#512DA8',
+            },
+            headerTitleStyle: {
+                color: '#fff',
+            },
+            headerTintColor: '#fff',
+        }),
+    }
 });
 
 const ContactNav = createAppContainer(ContactNavigator);
 
 const AboutNavigator = createStackNavigator({
-    "About Us": { screen: AboutUs },
-}, {
-    navigationOptions: ({ navigation }) => ({
-        headerStyle: {
-            backgroundColor: '#512DA8',
-        },
-        headerTitleStyle: {
-            color: '#fff',
-        },
-        headerTintColor: '#fff',
-    }),
+    "About Us": {
+        screen: AboutUs,
+        navigationOptions: ({ navigation }) => ({
+            headerStyle: {
+                backgroundColor: '#512DA8',
+            },
+            headerTitleStyle: {
+                color: '#fff',
+            },
+            headerTintColor: '#fff',
+        }),
+    }
 });
 
 

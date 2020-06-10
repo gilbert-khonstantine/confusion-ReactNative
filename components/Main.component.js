@@ -4,6 +4,8 @@ import Menu from './Menu.component';
 import { DISHES } from '../shared/dishes';
 import DishDetail from './DishDetail.component';
 import Home from './Home.component';
+import ContactUs from './ContactUs.component';
+import AboutUs from './AboutUs.component';
 import { View } from 'react-native';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
@@ -46,6 +48,39 @@ const HomeNavigator = createStackNavigator({
 
 const HomeNav = createAppContainer(HomeNavigator);
 
+const ContactNavigator = createStackNavigator({
+    ContactUs: { screen: ContactUs },
+}, {
+    navigationOptions: ({ navigation }) => ({
+        headerStyle: {
+            backgroundColor: '#512DA8',
+        },
+        headerTitleStyle: {
+            color: '#fff',
+        },
+        headerTintColor: '#fff',
+    }),
+});
+
+const ContactNav = createAppContainer(ContactNavigator);
+
+const AboutNavigator = createStackNavigator({
+    AboutUs: { screen: AboutUs },
+}, {
+    navigationOptions: ({ navigation }) => ({
+        headerStyle: {
+            backgroundColor: '#512DA8',
+        },
+        headerTitleStyle: {
+            color: '#fff',
+        },
+        headerTintColor: '#fff',
+    }),
+});
+
+
+const AboutNav = createAppContainer(AboutNavigator);
+
 const MainNavigator = createDrawerNavigator({
     Home:
     {
@@ -55,12 +90,28 @@ const MainNavigator = createDrawerNavigator({
             drawerLabel: 'Home',
         },
     },
+    AboutUs:
+    {
+        screen: AboutNav,
+        navigationOptions: {
+            title: 'About Us',
+            drawerLabel: 'About Us',
+        },
+    },
     Menu:
     {
-        screen: MenuNavigator,
+        screen: MenuNav,
         navigationOptions: {
             title: 'Menu',
             drawerLabel: 'Menu',
+        },
+    },
+    ContactUs:
+    {
+        screen: ContactNav,
+        navigationOptions: {
+            title: 'Contact Us',
+            drawerLabel: 'Contact Us',
         },
     },
 }, {

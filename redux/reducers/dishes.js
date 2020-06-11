@@ -11,9 +11,9 @@ export const dishes = (
 ) => {
   switch (action.type) {
     case ActionTypes.ADD_DISHES:
-      return {...state, dishes: action.payload, isLoading: false};
+      return { ...state, dishes: action.payload, isLoading: false };
     case ActionTypes.DISHES_FAILED:
-      return {...state, isLoading: false, err: action.payload};
+      return { ...state, isLoading: false, err: action.payload };
     case ActionTypes.DISHES_LOADING:
       return state;
     default:

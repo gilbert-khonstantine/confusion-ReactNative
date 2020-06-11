@@ -1,16 +1,16 @@
 /* eslint-disable prettier/prettier */
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Menu from './Menu.component';
-import {DISHES} from '../shared/dishes';
+import { DISHES } from '../shared/dishes';
 import DishDetail from './DishDetail.component';
 import Home from './Home.component';
 import ContactUs from './ContactUs.component';
 import AboutUs from './AboutUs.component';
-import {connect} from 'react-redux';
-import {View, ScrollView, Image, StyleSheet, Text} from 'react-native';
-import {createStackNavigator} from 'react-navigation-stack';
-import {createAppContainer, SafeAreaView} from 'react-navigation';
-import {createDrawerNavigator, DrawerItems} from 'react-navigation-drawer';
+import { connect } from 'react-redux';
+import { View, ScrollView, Image, StyleSheet, Text } from 'react-native';
+import { createStackNavigator } from 'react-navigation-stack';
+import { createAppContainer, SafeAreaView } from 'react-navigation';
+import { createDrawerNavigator, DrawerItems } from 'react-navigation-drawer';
 import {
   fetchComments,
   fetchDishes,
@@ -52,12 +52,12 @@ class Main extends Component {
   }
 
   onDishSelect(dishId) {
-    this.setState({selectedDish: dishId});
+    this.setState({ selectedDish: dishId });
   }
 
   render() {
     return (
-      <View style={{flex: 1}}>
+      <View style={{ flex: 1 }}>
         <MainNav />
       </View>
     );
@@ -67,7 +67,7 @@ class Main extends Component {
 const MenuNavigator = createStackNavigator({
   Menu: {
     screen: Menu,
-    navigationOptions: ({navigation}) => ({
+    navigationOptions: ({ navigation }) => ({
       headerLeft: () => (
         <Icon
           name="menu"
@@ -103,15 +103,15 @@ const CustomDrawerContentComponent = props => (
   <ScrollView>
     <SafeAreaView
       style={styles.container}
-      forceInset={{top: 'always', horizontal: 'never'}}>
+      forceInset={{ top: 'always', horizontal: 'never' }}>
       <View style={styles.drawerHeader}>
-        <View style={{flex: 1}}>
+        <View style={{ flex: 1 }}>
           <Image
             source={require('./images/logo.png')}
             style={styles.drawerImage}
           />
         </View>
-        <View style={{flex: 2}}>
+        <View style={{ flex: 2 }}>
           <Text style={styles.drawerHeaderText}>Ristorante Con Fusion</Text>
         </View>
       </View>
@@ -125,7 +125,7 @@ const MenuNav = createAppContainer(MenuNavigator);
 const HomeNavigator = createStackNavigator({
   Home: {
     screen: Home,
-    navigationOptions: ({navigation}) => ({
+    navigationOptions: ({ navigation }) => ({
       headerLeft: () => (
         <Icon
           name="menu"
@@ -150,7 +150,7 @@ const HomeNav = createAppContainer(HomeNavigator);
 const ContactNavigator = createStackNavigator({
   'Contact Us': {
     screen: ContactUs,
-    navigationOptions: ({navigation}) => ({
+    navigationOptions: ({ navigation }) => ({
       headerLeft: () => (
         <Icon
           name="menu"
@@ -175,7 +175,7 @@ const ContactNav = createAppContainer(ContactNavigator);
 const AboutNavigator = createStackNavigator({
   'About Us': {
     screen: AboutUs,
-    navigationOptions: ({navigation}) => ({
+    navigationOptions: ({ navigation }) => ({
       headerLeft: () => (
         <Icon
           name="menu"
@@ -204,7 +204,7 @@ const MainNavigator = createDrawerNavigator(
       navigationOptions: {
         title: 'Home',
         drawerLabel: 'Home',
-        drawerIcon: ({tintColor, focused}) => (
+        drawerIcon: ({ tintColor, focused }) => (
           <Icon name="home" type="font-awesome" size={24} color={tintColor} />
         ),
       },
@@ -214,7 +214,7 @@ const MainNavigator = createDrawerNavigator(
       navigationOptions: {
         title: 'About Us',
         drawerLabel: 'About Us',
-        drawerIcon: ({tintColor, focused}) => (
+        drawerIcon: ({ tintColor, focused }) => (
           <Icon name="info" type="font-awesome" size={24} color={tintColor} />
         ),
       },
@@ -224,7 +224,7 @@ const MainNavigator = createDrawerNavigator(
       navigationOptions: {
         title: 'Menu',
         drawerLabel: 'Menu',
-        drawerIcon: ({tintColor, focused}) => (
+        drawerIcon: ({ tintColor, focused }) => (
           <Icon name="list" type="font-awesome" size={24} color={tintColor} />
         ),
       },
@@ -234,7 +234,7 @@ const MainNavigator = createDrawerNavigator(
       navigationOptions: {
         title: 'Contact Us',
         drawerLabel: 'Contact Us',
-        drawerIcon: ({tintColor, focused}) => (
+        drawerIcon: ({ tintColor, focused }) => (
           <Icon name="phone" type="font-awesome" size={22} color={tintColor} />
         ),
       },

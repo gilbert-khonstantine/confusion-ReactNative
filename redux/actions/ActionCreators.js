@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import {baseUrl} from '../../shared/baseUrl';
+import { baseUrl } from '../../shared/baseUrl';
 import * as ActionTypes from './ActionTypes';
 
 export const fetchComments = () => dispatch => {
@@ -153,4 +153,16 @@ export const leadersFailed = errmess => ({
 export const addLeaders = leaders => ({
   type: ActionTypes.ADD_LEADERS,
   payload: leaders,
+});
+
+export const postFavorite = (dishId) => (dispatch) => {
+
+  setTimeout(() => {
+    dispatch(addFavorite(dishId));
+  }, 0);
+};
+
+export const addFavorite = (dishId) => ({
+  type: ActionTypes.ADD_FAVORITE,
+  payload: dishId
 });

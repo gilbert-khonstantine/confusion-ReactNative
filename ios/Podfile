@@ -79,6 +79,8 @@ target 'confusion' do
 
   pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
 
+
+
   target 'confusionTests' do
     inherit! :complete
     # Pods for testing

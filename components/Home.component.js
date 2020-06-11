@@ -1,13 +1,10 @@
 /* eslint-disable prettier/prettier */
-import React, {Component} from 'react';
-import {View, Text, ScrollView} from 'react-native';
-import {Card} from 'react-native-elements';
-import {DISHES} from '../shared/dishes';
-import {LEADERS} from '../shared/leaders';
-import {COMMENTS} from '../shared/comments';
-import {PROMOTIONS} from '../shared/promotions';
-import {connect} from 'react-redux';
-import {baseUrl} from '../shared/baseUrl';
+import React, { Component } from 'react';
+import { View, Text, ScrollView } from 'react-native';
+import { Card } from 'react-native-elements';
+import { connect } from 'react-redux';
+import { baseUrl } from '../shared/baseUrl';
+import Loading from './Loading.component';
 
 const mapStateToProps = state => {
   return {
@@ -19,18 +16,35 @@ const mapStateToProps = state => {
 };
 const RenderItem = props => {
   const item = props.item;
-  if (item != null) {
+  if (props.isLoading) {
     return (
-      <Card
-        featuredTitle={item.name}
-        featuredSubtitle={item.designation}
-        image={{uri: baseUrl + item.image}}>
-        <Text style={{margin: 10}}>{item.description}</Text>
-      </Card>
+      <Loading />
     );
   }
-  return <Text />;
-};
+  else if (props.err) {
+    return (
+      <View>
+        <Text>{props.err}</Text>
+      </View>
+    );
+  }
+  else {
+    if (item != null) {
+      return (
+        <Card
+          featuredTitle={item.name}
+          featuredSubtitle={item.designation}
+          image={{ uri: baseUrl + item.image }}>
+          <Text style={{ margin: 10 }}>{item.description}</Text>
+        </Card>
+      );
+    }
+    else {
+      return (<View></View>);
+    }
+  }
+}
+
 
 class Home extends Component {
   constructor(props) {
@@ -50,13 +64,9 @@ class Home extends Component {
   render() {
     return (
       <ScrollView>
-        <RenderItem item={this.state.dishes.filter(dish => dish.featured)[0]} />
-        <RenderItem
-          item={this.state.promotions.filter(promo => promo.featured)[0]}
-        />
-        <RenderItem
-          item={this.state.leaders.filter(leader => leader.featured)[0]}
-        />
+        <RenderItem item={this.props.dishes.dishes.filter((dish) => dish.featured)[0]} isLoading={this.props.dishes.isLoading} err={this.props.dishes.err} />
+        <RenderItem item={this.props.promotions.promos.filter((promo) => promo.featured)[0]} isLoading={this.props.promotions.isLoading} err={this.props.promotions.err} />
+        <RenderItem item={this.props.leaders.leaders.filter((leader) => leader.featured)[0]} isLoading={this.props.leaders.isLoading} err={this.props.leaders.errMess} />
       </ScrollView>
     );
   }

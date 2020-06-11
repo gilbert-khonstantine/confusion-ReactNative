@@ -2,9 +2,16 @@
 import React, {Component} from 'react';
 import {Text, View, FlatList, ScrollView} from 'react-native';
 import {Card} from 'react-native-elements';
-import {DISHES} from '../shared/dishes';
-import {COMMENTS} from '../shared/comments';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import {connect} from 'react-redux';
+import {baseUrl} from '../shared/baseUrl';
+
+const mapStateToProps = state => {
+  return {
+    dishes: state.dishes,
+    comments: state.comments,
+  };
+};
 Icon.loadFont();
 
 function RenderDish(props) {
@@ -12,9 +19,7 @@ function RenderDish(props) {
 
   if (dish != null) {
     return (
-      <Card
-        featuredTitle={dish.name}
-        image={require('./images/uthappizza.png')}>
+      <Card featuredTitle={dish.name} image={{uri: baseUrl + dish.image}}>
         <Text style={{margin: 10}}>{dish.description}</Text>
         <Icon
           raised
@@ -61,8 +66,8 @@ class DishDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dishes: DISHES,
-      comments: COMMENTS,
+      dishes: this.props.dishes.dishes,
+      comments: this.props.comments.comments,
       favourites: [],
     };
   }
@@ -94,4 +99,4 @@ class DishDetail extends Component {
   }
 }
 
-export default DishDetail;
+export default connect(mapStateToProps)(DishDetail);

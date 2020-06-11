@@ -11,9 +11,9 @@ export const comments = (
 ) => {
   switch (action.type) {
     case ActionTypes.ADD_COMMENTS:
-      return {...state, comments: action.payload, isLoading: false};
+      return {...state, comments: action.payload, isLoading: false, err: null};
     case ActionTypes.COMMENTS_FAILED:
-      return {...state, isLoading: false, err: action.payload};
+      return {...state, isLoading: false, err: action.payload, comments: []};
     default:
       return state;
   }

@@ -6,7 +6,17 @@ import {DISHES} from '../shared/dishes';
 import {LEADERS} from '../shared/leaders';
 import {COMMENTS} from '../shared/comments';
 import {PROMOTIONS} from '../shared/promotions';
+import {connect} from 'react-redux';
+import {baseUrl} from '../shared/baseUrl';
 
+const mapStateToProps = state => {
+  return {
+    dishes: state.dishes,
+    comments: state.comments,
+    promotions: state.promotions,
+    leaders: state.leaders,
+  };
+};
 const RenderItem = props => {
   const item = props.item;
   if (item != null) {
@@ -14,7 +24,7 @@ const RenderItem = props => {
       <Card
         featuredTitle={item.name}
         featuredSubtitle={item.designation}
-        image={require('./images/uthappizza.png')}>
+        image={{uri: baseUrl + item.image}}>
         <Text style={{margin: 10}}>{item.description}</Text>
       </Card>
     );
@@ -26,10 +36,10 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dishes: DISHES,
-      leaders: LEADERS,
-      comments: COMMENTS,
-      promotions: PROMOTIONS,
+      dishes: this.props.dishes.dishes,
+      leaders: this.props.leaders.leaders,
+      comments: this.props.comments.comments,
+      promotions: this.props.promotions.promos,
     };
   }
 
@@ -52,4 +62,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default connect(mapStateToProps)(Home);

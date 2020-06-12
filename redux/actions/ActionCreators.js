@@ -168,16 +168,13 @@ export const addFavorite = (dishId) => ({
 });
 
 export const postComment = (comment) => (dispatch) => {
-  console.log("posated comment");
   setTimeout(() => {
     dispatch(addComment(comment));
   }, 0);
 };
 
 export const addComment = (comment) => {
-  console.log("added comment");
   comment.date = new Date();
-  console.log(comment);
   return ({
     type: ActionTypes.ADD_COMMENT,
     payload: comment,

@@ -55,7 +55,6 @@ function RenderDish(props) {
             color="#f50"
             size={24}
             onPress={() => {
-              console.log('SHOW MODAL');
               return setShowModal(!showModal)
             }
             }

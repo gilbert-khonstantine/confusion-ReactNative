@@ -6,6 +6,7 @@ import DishDetail from './DishDetail.component';
 import Home from './Home.component';
 import ContactUs from './ContactUs.component';
 import AboutUs from './AboutUs.component';
+import { Reservation } from './Reservation.component';
 import { connect } from 'react-redux';
 import { View, ScrollView, Image, StyleSheet, Text } from 'react-native';
 import { createStackNavigator } from 'react-navigation-stack';
@@ -197,6 +198,31 @@ const AboutNavigator = createStackNavigator({
 
 const AboutNav = createAppContainer(AboutNavigator);
 
+const ReservationNavigator = createStackNavigator({
+  'Reservation': {
+    screen: Reservation,
+    navigationOptions: ({ navigation }) => ({
+      headerLeft: () => (
+        <Icon
+          name="menu"
+          color="white"
+          size={24}
+          onPress={() => navigation.toggleDrawer()}
+        />
+      ),
+      headerStyle: {
+        backgroundColor: '#512DA8',
+      },
+      headerTitleStyle: {
+        color: '#fff',
+      },
+      headerTintColor: '#fff',
+    }),
+  },
+});
+
+const ReservationNav = createAppContainer(ReservationNavigator);
+
 const MainNavigator = createDrawerNavigator(
   {
     Home: {
@@ -236,6 +262,16 @@ const MainNavigator = createDrawerNavigator(
         drawerLabel: 'Contact Us',
         drawerIcon: ({ tintColor, focused }) => (
           <Icon name="phone" type="font-awesome" size={22} color={tintColor} />
+        ),
+      },
+    },
+    Reservation: {
+      screen: ReservationNav,
+      navigationOptions: {
+        title: 'Reservation',
+        drawerLabel: 'Reservation',
+        drawerIcon: ({ tintColor, focused }) => (
+          <Icon name="restaurant" type="font-awesome" size={22} color={tintColor} />
         ),
       },
     },

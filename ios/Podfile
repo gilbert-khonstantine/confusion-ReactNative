@@ -81,6 +81,8 @@ target 'confusion' do
 
 
 
+  pod 'RNDateTimePicker', :path => '../node_modules/@react-native-community/datetimepicker'
+
   target 'confusionTests' do
     inherit! :complete
     # Pods for testing

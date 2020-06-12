@@ -14,6 +14,13 @@ export const comments = (
       return { ...state, comments: action.payload, isLoading: false, err: null };
     case ActionTypes.COMMENTS_FAILED:
       return { ...state, isLoading: false, err: action.payload, comments: [] };
+    case ActionTypes.ADD_COMMENT:
+      console.log('I AM AT ACTION TYPE')
+      var comment = action.payload;
+      comment.id = state.comments.length;
+      console.log(comment);
+      console.log({ ...state, comments: state.comments.concat(comment) });
+      return { ...state, comments: state.comments.concat(comment) };
     default:
       return state;
   }

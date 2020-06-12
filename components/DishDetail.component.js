@@ -1,11 +1,12 @@
 /* eslint-disable prettier/prettier */
-import React, { Component } from 'react';
-import { Text, View, FlatList, ScrollView } from 'react-native';
-import { Card } from 'react-native-elements';
+import React, { Component, useState } from 'react';
+import { Text, View, ScrollView, Modal, Button } from 'react-native';
+import { Card, Rating } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { connect } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
-import { postFavorite } from '../redux/actions/ActionCreators';
+import { postFavorite, postComment } from '../redux/actions/ActionCreators';
+import { CommentForm } from './CommentForm.component';
 
 const mapStateToProps = state => {
   return {
@@ -15,28 +16,56 @@ const mapStateToProps = state => {
   };
 };
 const mapDispatchToProps = dispatch => ({
-  postFavorite: (dishId) => dispatch(postFavorite(dishId))
-})
+  postFavorite: (dishId) => dispatch(postFavorite(dishId)),
+  postComment: (comment) => dispatch(postComment(comment)),
+});
 Icon.loadFont();
 
 function RenderDish(props) {
   const dish = props.dish;
-
+  const [showModal, setShowModal] = useState(false);
+  const resetForm = () => {
+    setShowModal(false);
+  }
+  const toggleModal = () => {
+    setShowModal(!showModal);
+  }
   if (dish != null) {
     return (
       <Card featuredTitle={dish.name} image={{ uri: baseUrl + dish.image }}>
         <Text style={{ margin: 10 }}>{dish.description}</Text>
-        <Icon
-          raised
-          reverse
-          name={props.favorite ? 'favorite' : 'favorite-border'}
-          type="font-awesome"
-          color="#f50"
-          size={24}
-          onPress={() =>
-            props.favorite ? console.log('Already favorite') : props.onPress()
-          }
-        />
+        <View style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexDirection: 'row'
+        }}>
+          <Icon
+            name={props.favorite ? 'favorite' : 'favorite-border'}
+            type="font-awesome"
+            color="#f50"
+            size={24}
+            onPress={() =>
+              props.favorite ? console.log('Already favorite') : props.onPress()
+            }
+          />
+          <Icon
+            name={'edit'}
+            type="font-awesome"
+            color="#f50"
+            size={24}
+            onPress={() => {
+              console.log('SHOW MODAL');
+              return setShowModal(!showModal)
+            }
+            }
+          />
+        </View>
+        <Modal animationType={"slide"} transparent={false}
+          visible={showModal}
+        >
+          <CommentForm toggleModal={toggleModal} dishId={props.dishId} postComment={props.postComment} />
+        </Modal>
       </Card>
     );
   } else {
@@ -48,7 +77,7 @@ function renderCommentItem(props) {
   return (
     <View key={props.id} style={{ margin: 10 }}>
       <Text style={{ fontSize: 14 }}>{props.comment}</Text>
-      <Text style={{ fontSize: 12 }}>{props.rating} Stars</Text>
+      <Text style={{ marginTop: 6 }}><Rating imageSize={10} readonly startingValue={props.rating} /></Text>
       <Text style={{ fontSize: 12 }}>
         {'-- ' + props.author + ', ' + props.date}{' '}
       </Text>
@@ -91,12 +120,14 @@ class DishDetail extends Component {
     return (
       <ScrollView>
         <RenderDish
-          dish={this.state.dishes[+dishId]}
+          dishId={dishId}
+          dish={this.props.dishes.dishes[+dishId]}
           favorite={this.props.favorites.some(el => el === dishId)}
           onPress={() => this.markFavouriteDish(dishId)}
+          postComment={this.props.postComment}
         />
         <RenderComments
-          comments={this.state.comments.filter(
+          comments={this.props.comments.comments.filter(
             comment => comment.dishId === dishId,
           )}
         />

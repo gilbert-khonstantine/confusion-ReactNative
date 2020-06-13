@@ -175,6 +175,20 @@ export const postComment = (comment) => (dispatch) => {
 
 export const addComment = (comment) => {
   comment.date = new Date();
+  fetch(baseUrl + 'comments', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(comment),
+  })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Success:', data);
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
   return ({
     type: ActionTypes.ADD_COMMENT,
     payload: comment,

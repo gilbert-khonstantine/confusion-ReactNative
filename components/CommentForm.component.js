@@ -9,7 +9,7 @@ Icon.loadFont();
 export function CommentForm(props) {
     const [author, setAuthor] = useState('');
     const [comment, setComment] = useState('');
-    const [rating, setRating] = useState(1);
+    const [rating, setRating] = useState(3);
 
     const onSubmit = (value) => {
         let formInput = {

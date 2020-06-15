@@ -83,6 +83,8 @@ target 'confusion' do
 
   pod 'RNDateTimePicker', :path => '../node_modules/@react-native-community/datetimepicker'
 
+  pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
+
   target 'confusionTests' do
     inherit! :complete
     # Pods for testing

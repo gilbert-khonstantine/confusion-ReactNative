@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
 import { postFavorite, postComment } from '../redux/actions/ActionCreators';
 import { CommentForm } from './CommentForm.component';
+import * as Animatable from 'react-native-animatable';
 
 const mapStateToProps = state => {
   return {
@@ -118,18 +119,22 @@ class DishDetail extends Component {
     const dishId = this.props.navigation.getParam('dishId', '');
     return (
       <ScrollView>
-        <RenderDish
-          dishId={dishId}
-          dish={this.props.dishes.dishes[+dishId]}
-          favorite={this.props.favorites.some(el => el === dishId)}
-          onPress={() => this.markFavouriteDish(dishId)}
-          postComment={this.props.postComment}
-        />
-        <RenderComments
-          comments={this.props.comments.comments.filter(
-            comment => comment.dishId === dishId,
-          )}
-        />
+        <Animatable.View animation="fadeInDown" duration={2000} delay={1000}>
+          <RenderDish
+            dishId={dishId}
+            dish={this.props.dishes.dishes[+dishId]}
+            favorite={this.props.favorites.some(el => el === dishId)}
+            onPress={() => this.markFavouriteDish(dishId)}
+            postComment={this.props.postComment}
+          />
+        </Animatable.View>
+        <Animatable.View animation="fadeInUp" duration={2000} delay={1000}>
+          <RenderComments
+            comments={this.props.comments.comments.filter(
+              comment => comment.dishId === dishId,
+            )}
+          />
+        </Animatable.View>
       </ScrollView>
     );
   }

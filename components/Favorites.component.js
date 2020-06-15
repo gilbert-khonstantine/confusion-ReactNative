@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { Loading } from './Loading.component';
 import { baseUrl } from '../shared/baseUrl';
 import { removeFavorite } from '../redux/actions/ActionCreators';
+import * as Animatable from 'react-native-animatable';
 
 const mapStateToProps = state => {
     return {
@@ -22,20 +23,18 @@ const mapDispatchToProps = dispatch => ({
 function RenderFavItem(props) {
     let item = props.favorite;
     return (
-        < ListItem
-            key={item.id}
-            title={item.name + '\n'}
-            subtitle={item.description}
-            hideChevron={true}
-            leftAvatar={{ source: { uri: baseUrl + item.image } }} />
+        <Animatable.View animation="fadeInRightBig" duration={2000}>
+            < ListItem
+                key={item.id}
+                title={item.name + '\n'}
+                subtitle={item.description}
+                hideChevron={true}
+                leftAvatar={{ source: { uri: baseUrl + item.image } }} />
+        </Animatable.View>
     );
 }
 
 function Favorites(props) {
-
-
-
-
     if (props.dishes.isLoading) {
         return (
             <Loading />

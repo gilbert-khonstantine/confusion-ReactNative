@@ -8,11 +8,11 @@ import { promotions } from '../reducers/promotions';
 import { leaders } from '../reducers/leaders';
 import { favorites } from '../reducers/favorites';
 import { persistStore, persistCombineReducers } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const config = {
   key: 'root',
-  storage,
+  storage: AsyncStorage,
   debug: true
 }
 

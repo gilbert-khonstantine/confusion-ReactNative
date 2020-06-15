@@ -25,15 +25,15 @@ Icon.loadFont();
 function RenderDish(props) {
   const dish = props.dish;
   const [showModal, setShowModal] = useState(false);
-  const resetForm = () => {
-    setShowModal(false);
-  }
+
   const toggleModal = () => {
     setShowModal(!showModal);
   }
   const recognizeDrag = ({ moveX, moveY, dx, dy }) => {
     if (dx < -200)
-      return true;
+      return 'Favorite';
+    else if (dx > 200)
+      return 'Comment';
     else
       return false;
   }
@@ -44,7 +44,7 @@ function RenderDish(props) {
     },
     onPanResponderEnd: (e, gestureState) => {
       console.log("pan responder end", gestureState);
-      if (recognizeDrag(gestureState))
+      if (recognizeDrag(gestureState) === 'Favorite')
         Alert.alert(
           'Add Favorite',
           'Are you sure you wish to add ' + dish.name + ' to favorite?',
@@ -54,7 +54,16 @@ function RenderDish(props) {
           ],
           { cancelable: false }
         );
-
+      else if (recognizeDrag(gestureState) === 'Comment')
+        Alert.alert(
+          'Add Comment',
+          'Do you wish to add any comment?',
+          [
+            { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+            { text: 'OK', onPress: () => { setShowModal(!showModal) } },
+          ],
+          { cancelable: false }
+        );
       return true;
     }
   })

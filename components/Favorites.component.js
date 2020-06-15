@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, { Component } from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import { ScrollView, Text, View, Alert } from 'react-native';
 import Swipeout from 'react-native-swipeout';
 import { ListItem } from 'react-native-elements';
 import { connect } from 'react-redux';
@@ -56,7 +56,25 @@ function Favorites(props) {
                         {
                             text: 'Delete',
                             type: 'delete',
-                            onPress: () => props.removeFavorite(item.id)
+                            onPress: () => {
+                                Alert.alert(
+                                    'Delete Favorite?',
+                                    'Are you sure you wish to delete the favorite dish ' + item.name + '?',
+                                    [
+                                        {
+                                            text: 'Cancel',
+                                            onPress: () => console.log(item.name + 'Not Deleted'),
+                                            style: ' cancel'
+                                        },
+                                        {
+                                            text: 'OK',
+                                            onPress: () => props.removeFavorite(item.id),
+                                        }
+                                    ],
+                                    { cancelable: false }
+                                );
+
+                            }
                         }
                     ]
                     return (

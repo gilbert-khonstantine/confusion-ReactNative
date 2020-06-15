@@ -194,3 +194,10 @@ export const addComment = (comment) => {
     payload: comment,
   });
 };
+
+export const removeFavorite = (dishId) => {
+  return ({
+    type: ActionTypes.REMOVE_FAVORITE,
+    payload: dishId,
+  });
+}

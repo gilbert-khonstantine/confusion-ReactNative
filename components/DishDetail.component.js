@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, { Component, useState } from 'react';
-import { Text, View, ScrollView, Modal, Button } from 'react-native';
+import { Text, View, ScrollView, Modal, Button, PanResponder, Alert } from 'react-native';
 import { Card, Rating } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { connect } from 'react-redux';
@@ -31,42 +31,73 @@ function RenderDish(props) {
   const toggleModal = () => {
     setShowModal(!showModal);
   }
+  const recognizeDrag = ({ moveX, moveY, dx, dy }) => {
+    if (dx < -200)
+      return true;
+    else
+      return false;
+  }
+
+  const panResponder = PanResponder.create({
+    onStartShouldSetPanResponder: (e, gestureState) => {
+      return true;
+    },
+    onPanResponderEnd: (e, gestureState) => {
+      console.log("pan responder end", gestureState);
+      if (recognizeDrag(gestureState))
+        Alert.alert(
+          'Add Favorite',
+          'Are you sure you wish to add ' + dish.name + ' to favorite?',
+          [
+            { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+            { text: 'OK', onPress: () => { props.favorite ? console.log('Already favorite') : props.onPress() } },
+          ],
+          { cancelable: false }
+        );
+
+      return true;
+    }
+  })
+
+
   if (dish != null) {
     return (
-      <Card featuredTitle={dish.name} image={{ uri: baseUrl + dish.image }}>
-        <Text style={{ margin: 10 }}>{dish.description}</Text>
-        <View style={{
-          flex: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
-          flexDirection: 'row'
-        }}>
-          <Icon
-            name={props.favorite ? 'favorite' : 'favorite-border'}
-            type="font-awesome"
-            color="#f50"
-            size={24}
-            onPress={() =>
-              props.favorite ? console.log('Already favorite') : props.onPress()
-            }
-          />
-          <Icon
-            name={'edit'}
-            type="font-awesome"
-            color="#f50"
-            size={24}
-            onPress={() => {
-              return setShowModal(!showModal)
-            }
-            }
-          />
-        </View>
-        <Modal animationType={"slide"} transparent={false}
-          visible={showModal}
-        >
-          <CommentForm toggleModal={toggleModal} dishId={props.dishId} postComment={props.postComment} />
-        </Modal>
-      </Card>
+      <Animatable.View animation="fadeInDown" duration={2000} delay={1000}  {...panResponder.panHandlers}>
+        <Card featuredTitle={dish.name} image={{ uri: baseUrl + dish.image }}>
+          <Text style={{ margin: 10 }}>{dish.description}</Text>
+          <View style={{
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexDirection: 'row'
+          }}>
+            <Icon
+              name={props.favorite ? 'favorite' : 'favorite-border'}
+              type="font-awesome"
+              color="#f50"
+              size={24}
+              onPress={() =>
+                props.favorite ? console.log('Already favorite') : props.onPress()
+              }
+            />
+            <Icon
+              name={'edit'}
+              type="font-awesome"
+              color="#f50"
+              size={24}
+              onPress={() => {
+                return setShowModal(!showModal)
+              }
+              }
+            />
+          </View>
+          <Modal animationType={"slide"} transparent={false}
+            visible={showModal}
+          >
+            <CommentForm toggleModal={toggleModal} dishId={props.dishId} postComment={props.postComment} />
+          </Modal>
+        </Card>
+      </Animatable.View>
     );
   } else {
     return <View />;
@@ -119,15 +150,13 @@ class DishDetail extends Component {
     const dishId = this.props.navigation.getParam('dishId', '');
     return (
       <ScrollView>
-        <Animatable.View animation="fadeInDown" duration={2000} delay={1000}>
-          <RenderDish
-            dishId={dishId}
-            dish={this.props.dishes.dishes[+dishId]}
-            favorite={this.props.favorites.some(el => el === dishId)}
-            onPress={() => this.markFavouriteDish(dishId)}
-            postComment={this.props.postComment}
-          />
-        </Animatable.View>
+        <RenderDish
+          dishId={dishId}
+          dish={this.props.dishes.dishes[+dishId]}
+          favorite={this.props.favorites.some(el => el === dishId)}
+          onPress={() => this.markFavouriteDish(dishId)}
+          postComment={this.props.postComment}
+        />
         <Animatable.View animation="fadeInUp" duration={2000} delay={1000}>
           <RenderComments
             comments={this.props.comments.comments.filter(

@@ -45,9 +45,6 @@ function History(props) {
 }
 
 function AboutUs(props) {
-  console.log("9009090")
-  console.log(props.leaders);
-  console.log(props.leaders.leaders);
   if (props.leaders.isLoading) {
     return (<ScrollView>
       <History />

@@ -6,6 +6,7 @@ import DishDetail from './DishDetail.component';
 import Home from './Home.component';
 import ContactUs from './ContactUs.component';
 import AboutUs from './AboutUs.component';
+import Favorites from './Favorites.component';
 import { Reservation } from './Reservation.component';
 import { connect } from 'react-redux';
 import { View, ScrollView, Image, StyleSheet, Text } from 'react-native';
@@ -122,6 +123,33 @@ const CustomDrawerContentComponent = props => (
 );
 
 const MenuNav = createAppContainer(MenuNavigator);
+
+
+const FavoritesNavigator = createStackNavigator({
+  Favorites: {
+    screen: Favorites,
+    navigationOptions: ({ navigation }) => ({
+      headerLeft: () => (
+        <Icon
+          name="menu"
+          color="white"
+          size={24}
+          onPress={() => navigation.toggleDrawer()}
+        />
+      ),
+      headerStyle: {
+        backgroundColor: '#512DA8',
+      },
+      headerTitleStyle: {
+        color: '#fff',
+      },
+      headerTintColor: '#fff',
+    }),
+  },
+});
+
+const FavoritesNav = createAppContainer(FavoritesNavigator);
+
 
 const HomeNavigator = createStackNavigator({
   Home: {
@@ -252,6 +280,16 @@ const MainNavigator = createDrawerNavigator(
         drawerLabel: 'Menu',
         drawerIcon: ({ tintColor, focused }) => (
           <Icon name="list" type="font-awesome" size={24} color={tintColor} />
+        ),
+      },
+    },
+    Favorites: {
+      screen: FavoritesNav,
+      navigationOptions: {
+        title: 'My Favorites',
+        drawerLabel: 'My Favorites',
+        drawerIcon: ({ tintColor, focused }) => (
+          <Icon name="favorite" type="font-awesome" size={22} color={tintColor} />
         ),
       },
     },

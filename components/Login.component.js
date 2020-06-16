@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Button, StyleSheet } from 'react-native';
 import { Card, Input, CheckBox } from 'react-native-elements';
 import * as SecureStore from 'expo-secure-store';
+import * as Keychain from 'react-native-keychain';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 Icon.loadFont();
 
@@ -12,34 +13,41 @@ function Login(props) {
     const [remember, setRemember] = useState(false);
 
     useEffect(() => {
-        SecureStore.getItemAsync('userinfo')
-            .then((userdata) => {
-                let userinfo = JSON.parse(userdata);
-                if (userinfo) {
-                    setUsername(userinfo.username);
-                    setPassword(userinfo.password);
-                    setRemember(true);
+        const fetchData = async () => {
+            try {
+                // Retrieve the credentials
+                const credentials = await Keychain.getGenericPassword();
+                console.log("CALLED");
+                console.log(credentials);
+                if (credentials) {
+                    setUsername(credentials.username);
+                    setPassword(credentials.password);
+                    console.log(
+                        'Credentials successfully loaded for user ' + credentials.username
+                    );
+                } else {
+                    console.log('No credentials stored');
                 }
-                else {
-                    setUsername('');
-                    setPassword('');
-                    setRemember(false);
-                }
-            })
-            .catch((error) => console.log('Could not get user info', error));
+            } catch (error) {
+                console.log("Keychain couldn't be accessed!", error);
+            }
+            console.log(username);
+            console.log(password);
+        };
+        fetchData();
     })
 
-    const handleLogin = () => {
+
+
+    const handleLogin = async () => {
         if (remember) {
-            SecureStore.setItemAsync('userinfo', JSON.stringify({
-                username: username,
-                password: password,
-            }))
-                .catch((error) => console.log('Could not save user info', error));
+            Keychain.setGenericPassword(username, password);
+            console.log("suc");
         }
         else {
-            SecureStore.deleteItemAsync('userinfo')
-                .catch((error) => console.log('Could not delete user info', error));
+            Keychain.resetGenericPassword();
+            setUsername('');
+            setPassword('');
         }
     };
 

@@ -1,7 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, { Component } from 'react';
 import Menu from './Menu.component';
-import { DISHES } from '../shared/dishes';
 import DishDetail from './DishDetail.component';
 import Home from './Home.component';
 import ContactUs from './ContactUs.component';
@@ -20,6 +19,7 @@ import {
   fetchPromos,
 } from '../redux/actions/ActionCreators';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import Login from './Login.component';
 Icon.loadFont();
 
 const mapStateToProps = state => {
@@ -65,6 +65,31 @@ class Main extends Component {
     );
   }
 }
+
+const LoginNavigator = createStackNavigator({
+  Login: {
+    screen: Login,
+    navigationOptions: ({ navigation }) => ({
+      headerLeft: () => (
+        <Icon
+          name="menu"
+          color="white"
+          size={24}
+          onPress={() => navigation.toggleDrawer()}
+        />
+      ),
+      headerStyle: {
+        backgroundColor: '#512DA8',
+      },
+      headerTitleStyle: {
+        color: '#fff',
+      },
+      headerTintColor: '#fff',
+    }),
+  },
+});
+
+const LoginNav = createAppContainer(LoginNavigator);
 
 const MenuNavigator = createStackNavigator({
   Menu: {
@@ -253,6 +278,16 @@ const ReservationNav = createAppContainer(ReservationNavigator);
 
 const MainNavigator = createDrawerNavigator(
   {
+    Login: {
+      screen: LoginNav,
+      navigationOptions: {
+        title: 'Login',
+        drawerLabel: 'Login',
+        drawerIcon: ({ tintColor, focused }) => (
+          <Icon name="account-box" type="font-awesome" size={24} color={tintColor} />
+        ),
+      },
+    },
     Home: {
       screen: HomeNav,
       navigationOptions: {

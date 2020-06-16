@@ -50,20 +50,20 @@ function Login(props) {
                 leftIcon={{ type: 'font-awesome', name: 'user-o' }}
                 onChangeText={(username) => setUsername(username)}
                 value={username}
-                containerStyle={styles.formInput}
+                inputContainerStyle={styles.formInput}
             />
             <Input
                 placeholder="Password"
                 leftIcon={{ type: 'font-awesome', name: 'key' }}
                 onChangeText={(password) => setPassword(password)}
                 value={password}
-                containerStyle={styles.formInput}
+                inputContainerStyle={styles.formInput}
             />
             <CheckBox title="Remember Me"
                 center
                 checked={remember}
                 onPress={() => setRemember(!remember)}
-                containerStyle={styles.formCheckbox}
+                inputContainerStyle={styles.formCheckbox}
             />
             <View style={styles.formButton}>
                 <Button

@@ -117,7 +117,7 @@ function renderCommentItem(props) {
   return (
     <View key={props.id} style={{ margin: 10 }}>
       <Text style={{ fontSize: 14 }}>{props.comment}</Text>
-      <Text style={{ marginTop: 6 }}><Rating imageSize={10} readonly startingValue={props.rating} /></Text>
+      <Rating imageSize={10} readonly startingValue={props.rating} style={{ paddingVertical: 10, paddingRight: 260 }} />
       <Text style={{ fontSize: 12 }}>
         {'-- ' + props.author + ', ' + props.date}{' '}
       </Text>
@@ -130,7 +130,7 @@ function RenderComments(props) {
   return (
     <Card title="Comments">
       {comments.map(comment => {
-        return renderCommentItem(comment);
+        return (renderCommentItem(comment));
       })}
     </Card>
   );

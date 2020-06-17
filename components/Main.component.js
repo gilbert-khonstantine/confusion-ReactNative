@@ -67,7 +67,7 @@ class Main extends Component {
 }
 
 const LoginNavigator = createStackNavigator({
-  Login: {
+  ' ': {
     screen: Login,
     navigationOptions: ({ navigation }) => ({
       headerLeft: () => (

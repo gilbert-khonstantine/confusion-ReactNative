@@ -87,6 +87,8 @@ pod 'RNKeychain', :path => '../node_modules/react-native-keychain'
   pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
 
 
+  pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
+
   target 'confusionTests' do
     inherit! :complete
     # Pods for testing

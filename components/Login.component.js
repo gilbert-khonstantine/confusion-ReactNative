@@ -246,15 +246,15 @@ function RegisterTab(props) {
                         style={styles.image}
                     />
                     <Button
-                        onPress={() => imageGalleryLaunch(setImageUrl)}
+                        onPress={() => selectFile(setImageUrl)}
                         title="Select Image For Your Profile"
                         color="#512DA8"
                     />
-                    <Button
+                    {/* <Button
                         onPress={() => cameraLaunch(setImageUrl)}
                         title="Take Picture"
                         color="#512DA8"
-                    />
+                    /> */}
                 </View>
                 <CheckBox title="Remember Me"
                     center

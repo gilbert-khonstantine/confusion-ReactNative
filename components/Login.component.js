@@ -30,6 +30,53 @@ function selectFile(setImageUrl) {
     });
 };
 
+function cameraLaunch(setImageUrl) {
+    let options = {
+        storageOptions: {
+            skipBackup: true,
+            path: 'images',
+        },
+    };
+    ImagePicker.launchCamera(options, (res) => {
+        if (res.didCancel) {
+            console.log('User cancelled image picker');
+        } else if (res.error) {
+            console.log('ImagePicker Error: ', res.error);
+        } else if (res.customButton) {
+            console.log('User tapped custom button: ', res.customButton);
+            alert(res.customButton);
+        } else {
+            const source = { uri: res.uri };
+            console.log('response', JSON.stringify(res));
+            setImageUrl(source.uri);
+        }
+    });
+}
+
+function imageGalleryLaunch(setImageUrl) {
+    let options = {
+        storageOptions: {
+            skipBackup: true,
+            path: 'images',
+        },
+    };
+
+    ImagePicker.launchImageLibrary(options, (res) => {
+        if (res.didCancel) {
+            console.log('User cancelled image picker');
+        } else if (res.error) {
+            console.log('ImagePicker Error: ', res.error);
+        } else if (res.customButton) {
+            console.log('User tapped custom button: ', res.customButton);
+            alert(res.customButton);
+        } else {
+            const source = { uri: res.uri };
+            console.log('response', JSON.stringify(res));
+            setImageUrl(source.uri);
+        }
+    });
+}
+
 function LoginTab(props) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -199,8 +246,13 @@ function RegisterTab(props) {
                         style={styles.image}
                     />
                     <Button
-                        onPress={() => selectFile(setImageUrl)}
+                        onPress={() => imageGalleryLaunch(setImageUrl)}
                         title="Select Image For Your Profile"
+                        color="#512DA8"
+                    />
+                    <Button
+                        onPress={() => cameraLaunch(setImageUrl)}
+                        title="Take Picture"
                         color="#512DA8"
                     />
                 </View>

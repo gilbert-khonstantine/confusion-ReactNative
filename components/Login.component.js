@@ -12,12 +12,6 @@ Icon.loadFont();
 function selectFile(setImageUrl) {
     var options = {
         title: 'Select Image',
-        customButtons: [
-            {
-                name: 'customOptionKey',
-                title: 'Choose file from Custom Option'
-            },
-        ],
         storageOptions: {
             skipBackup: true,
             path: 'images',
@@ -29,9 +23,6 @@ function selectFile(setImageUrl) {
             console.log('User cancelled image picker');
         } else if (res.error) {
             console.log('ImagePicker Error: ', res.error);
-        } else if (res.customButton) {
-            console.log('User tapped custom button: ', res.customButton);
-            alert(res.customButton);
         } else {
             let source = res;
             setImageUrl(source.uri);

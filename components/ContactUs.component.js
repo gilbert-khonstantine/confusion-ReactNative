@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, Linking, Button } from 'react-native';
 import { Card } from 'react-native-elements';
 
 export default function ContactUs(props) {
@@ -18,6 +18,8 @@ export default function ContactUs(props) {
                     Fax: +852 8765 4321{"\n"}
                     Email:confusion@food.net{"\n"}
                 </Text>
+                <Button onPress={() => Linking.openURL('mailto:confusion@food.net')}
+                    title="Email Us" color="#512DA8" />
             </Card>
         </View >
     )

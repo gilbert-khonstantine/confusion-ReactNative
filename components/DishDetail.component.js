@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, { Component, useState } from 'react';
-import { Text, View, ScrollView, Modal, Button, PanResponder, Alert } from 'react-native';
+import { Text, View, ScrollView, Modal, Share, Button, PanResponder, Alert } from 'react-native';
 import { Card, Rating } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { connect } from 'react-redux';
@@ -68,6 +68,26 @@ function RenderDish(props) {
     }
   })
 
+  const onShare = async (title, message, url) => {
+    try {
+      const result = await Share.share({
+        title: title,
+        message: title + ': ' + message + ' ' + url,
+        url: url
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (error) {
+      alert(error.message);
+    }
+  };
 
   if (dish != null) {
     return (
@@ -96,6 +116,16 @@ function RenderDish(props) {
               size={24}
               onPress={() => {
                 return setShowModal(!showModal)
+              }
+              }
+            />
+            <Icon
+              name={'share'}
+              type="font-awesome"
+              color="#f50"
+              size={24}
+              onPress={() => {
+                return onShare(dish.name, dish.description, baseUrl + dish.image);
               }
               }
             />
